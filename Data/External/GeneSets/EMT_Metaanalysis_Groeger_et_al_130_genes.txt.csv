@@ -1,0 +1,132 @@
+Symbol	EntrezID	Name	Other categories	Direction	Cluster
+ADAM12	8038	ATP-binding cassette, sub-family A (ABC1), member 1	b	Up	Cell adhesion and migration
+CDH11	1009	cadherin 11, type 2, OB-cadherin (osteoblast)	b	Up	Cell adhesion and migration
+CDH2	1000	cadherin 2, type 1, N-cadherin (neuronal)	b	Up	Cell adhesion and migration
+COL1A1	1277	collagen, type I, alpha 1	b	Up	Cell adhesion and migration
+COL3A1	1281	collagen, type III, alpha 1	b	Up	Cell adhesion and migration
+COL5A1	1289	collagen, type V, alpha 1	b	Up	Cell adhesion and migration
+COL6A1	1291	collagen, type VI, alpha 1	b	Up	Cell adhesion and migration
+COL6A3	1293	collagen, type VI, alpha 3	b	Up	Cell adhesion and migration
+CTGF	1490	connective tissue growth factor	b, c, d, e	Up	Cell adhesion and migration
+CYP1B1	1545	cytochrome P450, family 1, subfamily B, polypeptide 1	b, d	Up	Cell adhesion and migration
+DLC1	10395	deleted in liver cancer 1	b	Up	Cell adhesion and migration
+FBLN1	2192	fibulin 1	b	Up	Cell adhesion and migration
+FBLN5	10516	fibulin5	b	Up	Cell adhesion and migration
+FGF2	2247	fibroblast growth factor 2 (basic)	b, c, d, e	Up	Cell adhesion and migration
+FGFR1	2260	fibroblast growth factor receptor 1	b, c, e	Up	Cell adhesion and migration
+FN1	2335	fibronectin 1	b, c, e	Up	Cell adhesion and migration
+HAS2	3037	hyaluronan synthase 2	b	Up	Cell adhesion and migration
+LAMC2	3918	laminin, gamma 2		Up	Cell adhesion and migration
+LUM	4060	lumican	b	Up	Cell adhesion and migration
+MMP2	4313	matrix metallopeptidase 2 (gelatinase A, 72kDa gelatinase, 72kDa type IV collagenase)	b, c, e	Up	Cell adhesion and migration
+MYL9	10398	myosin, light chain 9, regulatory	b	Up	Cell adhesion and migration
+NID2	22795	nidogen 2 (osteonidogen)		Up	Cell adhesion and migration
+NR2F1	7025	nuclear receptor subfamily 2, group F, member 1	b, d	Up	Cell adhesion and migration
+NRP1	8829	neuropilin 1	b, c	Up	Cell adhesion and migration
+PLAT	5327	plasminogen activator, tissue	b, c	Up	Cell adhesion and migration
+PPAP2B	8613	phosphatidic acid phosphatase type 2B	b, c	Up	Cell adhesion and migration
+PRKCA	5578	protein kinase C, alpha	b, c, d, e	Up	Cell adhesion and migration
+RECK	7434	reversion-inducing-cysteine-rich protein with kazal motifs	b, c	Up	Cell adhesion and migration
+SERPINE1	5054	serpin peptidase inhibitor, clade E, member 1	b, c, e	Up	Cell adhesion and migration
+SERPINE2	5270	serpin peptidase inhibitor, clade E, member 2	b, c	Up	Cell adhesion and migration
+SPOCK1	6695	sparc/osteonectin, cwcv and kazal-like domains proteoglycan (testican) 1	b	Up	Cell adhesion and migration
+TGM2	7052	transglutaminase 	b, c, e	Up	Cell adhesion and migration
+TNFAIP6	7130	tumor necrosis factor, alpha-induced protein 6	b, c	Up	Cell adhesion and migration
+TPM1	7168	tropomyosin 1 (alpha)	b, c	Up	Cell adhesion and migration
+VCAN	1462	versican	b, c	Up	Cell adhesion and migration
+WNT5A	7474	wingless-type MMTV integration site family, member 5A	b, c, e	Up	Cell adhesion and migration
+CDKN2C	1031	cyclin-dependent kinase inhibitor 2C (p18, inhibits CDK4)	d, e	Up	Development/Cell differentiaon and proliferation
+EMP3	2014	epithelial membrane protein 3	d, e	Up	Development/Cell differentiaon and proliferation
+FBN1	2200	fibrillin 1		Up	Development/Cell differentiaon and proliferation
+IGFBP3	3486	insulin-like growth factor binding protein 3	d, e	Up	Development/Cell differentiaon and proliferation
+IL1R1	3554	interleukin 1 receptor, type I		Up	Development/Cell differentiaon and proliferation
+LTBP1	4052	latent transforming growth factor beta binding protein 1		Up	Development/Cell differentiaon and proliferation
+MME	4311	membrane metallo-endopeptidase	d	Up	Development/Cell differentiaon and proliferation
+PMP22	5376	peripheral myelin protein 22		Up	Development/Cell differentiaon and proliferation
+PTGER2	5732	prostaglandin E receptor 2 (subtype EP2), 53kDa		Up	Development/Cell differentiaon and proliferation
+PTX3	5806	pentraxin 3, long	c, d	Up	Development/Cell differentiaon and proliferation
+SRGN	5552	serglycin	c, e	Up	Development/Cell differentiaon and proliferation
+SULF	23213	sulfatase 1	c	Up	Development/Cell differentiaon and proliferation
+SYNE1	23345	spectrin repeat containing, nuclear envelope 1	e	Up	Development/Cell differentiaon and proliferation
+TAGLN	6876	transgelin		Up	Development/Cell differentiaon and proliferation
+TUBA1A	7846	tubulin, alpha 1a		Up	Development/Cell differentiaon and proliferation
+VIM	7431	vimentin	e	Up	Development/Cell differentiaon and proliferation
+ZEB1	6935	zinc finger E-box binding homeobox 1		Up	Development/Cell differentiaon and proliferation
+DCN	1634	decorin	a, b, e	Up	Angiogenesis and wound healing
+LOX	4015	lysyl oxidase	a, b, d	Up	Angiogenesis and wound healing
+TFPI	7035	tissue factor pathway inhibitor (lipoprotein-associated coagulation inhibitor)		Up	Angiogenesis and wound healing
+ABCA1	19	ATP-binding cassette, sub-family A (ABC1), member 1	b	Up	Metabolism
+GALNT10	55568	GalNAc-T10		Up	Metabolism
+SLC22A4	6583	solute carrier family 22 (organic cation/ergothioneine transporter), member 4		Up	Metabolism
+C5orf13	9315	chromosome 5 open reading frame 13		Up	Other
+CDK14	5218	cyclin-dependent kinase 14		Up	Other
+EML1	2009	echinoderm microtubule associated protein like 1		Up	Other
+FSTL1	11167	follistatin-like 1		Up	Other
+LTBP2	4053	latent transforming growth factor beta binding protein 2		Up	Other
+MAP1B	4131	microtubule-associated protein 1B		Up	Other
+RGS4	5999	regulator of G-protein signaling 4		Up	Other
+SYT11	23208	synaptotagmin XI		Up	Other
+TMEM158	25907	transmembrane protein 158 (gene/pseudogene)		Up	Other
+CD24	100133941	CD24 molecule	b, e	Down	Cell adhesion and migration
+CDH1	999	cadherin 1, type 1, E-cadherin (epithelial)	b, e	Down	Cell adhesion and migration
+CXADR	1525	coxsackie virus and adenovirus receptor	b, c	Down	Cell adhesion and migration
+CXCL16	58191	chemokine (C-X-C motif) ligand 16	b	Down	Cell adhesion and migration
+DSG3	1830	desmoglein 3	e	Down	Cell adhesion and migration
+ELF3	1999	E74-like factor 3 (ets domain transcription factor, epithelial-specific )	b, c, e	Down	Cell adhesion and migration
+EPCAM	4072	epithelial cell adhesion molecule	b	Down	Cell adhesion and migration
+EPHA1	2041	EPH receptor A1	b	Down	Cell adhesion and migration
+JUP	3728	junction plakoglobin	b	Down	Cell adhesion and migration
+MPZL2	10205	myelin protein zero-like 2	b	Down	Cell adhesion and migration
+OVOL2	58495	ovo-like 2 (Drosophila)	b	Down	Cell adhesion and migration
+PLXNB1	5364	plexin B1	b	Down	Cell adhesion and migration
+S100P	6286	S100 calcium binding protein P		Down	Cell adhesion and migration
+SLC7A5	8140	solute carrier family 7 (cationic amino acid transporter, y+ system), member 5	b, c	Down	Cell adhesion and migration
+SYK	6850	spleen tyrosine kinase	b, c, d	Down	Cell adhesion and migration
+ABLIM1	3983	actin binding LIM protein 1	a	Down	Development/Cell differentiaon and proliferation
+ADRB2	154	adrenergic, beta-2-, receptor, surface	c, e	Down	Development/Cell differentiaon and proliferation
+ALDH1A3	220	aldehyde dehydrogenase 1 family, member A3	e	Down	Development/Cell differentiaon and proliferation
+ANK3	288	ankyrin 3, node of Ranvier (ankyrin G)		Down	Development/Cell differentiaon and proliferation
+BIK	638	BCL2-interacting killer (apoptosis-inducing)	e	Down	Development/Cell differentiaon and proliferation
+CA2	760	carbonic anhydrase II		Down	Development/Cell differentiaon and proliferation
+CTSL2	1515	cathepsin L2	d, e	Down	Development/Cell differentiaon and proliferation
+FGFR2	2263	fibroblast growth factor receptor 2		Down	Development/Cell differentiaon and proliferation
+FGFR3	2261	fibroblast growth factor receptor 3		Down	Development/Cell differentiaon and proliferation
+FST	10468	follistatin		Down	Development/Cell differentiaon and proliferation
+GJB3	2707	gap junction protein, beta 3, 31kDa		Down	Development/Cell differentiaon and proliferation
+IFI30	10437	interferon, gamma-inducible protein 30		Down	Development/Cell differentiaon and proliferation
+IL18	3606	interleukin 18 (interferon-gamma-inducing factor)	a, c, e	Down	Development/Cell differentiaon and proliferation
+KLK7	5650	kallikrein-related peptidase 7		Down	Development/Cell differentiaon and proliferation
+KRT15	3866	keratin 15		Down	Development/Cell differentiaon and proliferation
+KRT17	3872	keratin 17		Down	Development/Cell differentiaon and proliferation
+LSR	51599	lipolysis stimulated lipoprotein receptor	d	Down	Development/Cell differentiaon and proliferation
+MAP7	9053	microtubule-associated protein 7	d	Down	Development/Cell differentiaon and proliferation
+MBP	4155	myelin basic protein		Down	Development/Cell differentiaon and proliferation
+OCLN	4950	occludin	e	Down	Development/Cell differentiaon and proliferation
+PKP2	5318	plakophilin 2	a	Down	Development/Cell differentiaon and proliferation
+PPL	5493	periplakin		Down	Development/Cell differentiaon and proliferation
+PRSS8	5652	protease, serine, 8	d	Down	Development/Cell differentiaon and proliferation
+RAPGEF5	9771	Rap guanine nucleotide exchange factor (GEF) 5		Down	Development/Cell differentiaon and proliferation
+SPINT1	6692	serine peptidase inhibitor, Kunitz type 1		Down	Development/Cell differentiaon and proliferation
+GPX3	2878	glutathione peroxidase 3 (plasma)	b	Down	Metabolism
+SLC27A2	11001	solute carrier family 27 (fatty acid transporter), member 2		Down	Metabolism
+SMPDL3B	27293	sphingomyelin phosphodiesterase, acid-like 3B		Down	Metabolism
+SORL1	6653	sortilin-related receptor, L(DLR class) A repeats containing	a	Down	Metabolism
+ST6GALNAC2	10610	ST6 -N-acetylgalactosaminide alpha-2,6-sialyltransferase 2		Down	Metabolism
+AGR2	10551	anterior gradient homolog 2 (Xenopus laevis)		Down	Other
+C10orf10	11067	chromosome 10 open reading frame 10		Down	Other
+CDS1	1040	CDP-diacylglycerol synthase (phosphatidate cytidylyltransferase) 1		Down	Other
+FAM169A	26049	family with sequence similarity 169, member A		Down	Other
+FXYD3	5349	FXYD domain containing ion transport regulator 3		Down	Other
+KLK10	5655	kallikrein-related peptidase 10		Down	Other
+LAD1	3898	ladinin 1		Down	Other
+MTUS1	57509	microtubule associated tumor suppressor 1		Down	Other
+PLS1	5357	plastin 1		Down	Other
+PRRG4	79056	proline rich Gla (G-carboxyglutamic acid) 4 (transmembrane)		Down	Other
+RHOD	29984	ras homolog gene family, member D		Down	Other
+SERPINB1	1992	serpin peptidase inhibitor, clade B (ovalbumin), member 1		Down	Other
+SLPI	6590	secretory leukocyte peptidase inhibitor		Down	Other
+TMEM30B	161291	transmembrane protein 30B		Down	Other
+TPD52L1	7164	tumor protein D52-like 1	e	Down	Other
+TSPAN1	10103	tetraspanin 1		Down	Other
+ZHX2	22882	zinc fingers and homeoboxes 2		Down	Other
+ZNF165	7718	zinc finger protein 165		Down	Other

@@ -1,0 +1,22 @@
+Data files required for analysis are provided in Data folder and referenced from R scripts in Code/...
+
+Fig 1D/1E and S3B/S3C:
+- Phosphoproteome data was preprocessed according to Code/Phosphoproteome/PreparePhosphoproteomeData.R 
+- Differentiall proteome/phosphoproteome expression was calculated according to script Code/Phosphoproteome/DifferentialProteomExpression.R
+- Result table Phosphoproteome_DiffExpression.txt in Results/Proteome were loaded into Tibco Spotfire for data visualization. Markers were averaged across identical results for the same site (column site_ID_unique).
+
+Fig. 2A:
+- Code for generation of the circos plot (Results/Proteome/Circos_plot.pdf) using code in Code/Circos/Circos.R
+
+Fig. 2B: 
+- Code for transformation of iGPS kinase predictions to weights for KinomeTree can be found in Code/KinomeTree_Data_Transformation/Kinome_data_transformation.R
+
+Fig. 3C, S3A, S4A 
+- Gene expression data was preprocessed (Code/GeneExpressionMicroarray/Preprocess_raw_files.Rmd) and differential protein/phosphosite expression analyzed using LIMMA (Code/GeneExpressionMicroarray/Expression_analysis.Rmd)
+- GSEA for EMT gene sets was performed according to Code/GeneExpressionMicroarray/GSEA.Rmd. Result can be found in Results/GeneExpression/GSEA_Metaanalysis_365_genes.pdf
+- Heatmap in S3A was generated as described in Code/GeneExpressionMicroarray/Heatmap.Rmd
+- For Fig S4A, file Results/GeneExpression/Differential_expression_results_48h_InfVsNI.txt was loaded into Tibco Spotfire
+
+
+
+

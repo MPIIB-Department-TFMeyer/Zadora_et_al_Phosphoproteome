@@ -1,0 +1,170 @@
+---
+title: "Ctr Infection in End1 cells 24h/48h - GSEA analysis on DGE results"
+author: "Hilmar Berger"
+output: 
+ html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: false
+    number_sections: true
+    code_folding: hide
+    
+pdf_document:
+    fig_caption: true
+date: "`r format(Sys.time(), '%d %B, %Y %H:%M:%S')`"
+---
+
+```{r, warning=FALSE, message=FALSE}
+rm(list=ls())
+
+suppressMessages(library(xlsx))
+library(reshape2)
+library(pheatmap)
+library(ggplot2)
+library(knitr)
+library(scales)
+library(fgsea)
+
+result_folder = "../../Results/GeneExpression/"
+set.seed(12345)
+```
+
+```{r}
+myPlotEnrichment <- function (pathway, stats, gseaParam = 1) 
+{
+    rnk <- rank(-stats)
+    ord <- order(rnk)
+    statsAdj <- stats[ord]
+    statsAdj <- sign(statsAdj) * (abs(statsAdj)^gseaParam)
+    statsAdj <- statsAdj/max(abs(statsAdj))
+    pathway <- unname(as.vector(na.omit(match(pathway, names(statsAdj)))))
+    pathway <- sort(pathway)
+    gseaRes <- calcGseaStat(statsAdj, selectedStats = pathway, 
+        returnAllExtremes = TRUE)
+    bottoms <- gseaRes$bottoms
+    tops <- gseaRes$tops
+    n <- length(statsAdj)
+    xs <- as.vector(rbind(pathway - 1, pathway))
+    ys <- as.vector(rbind(bottoms, tops))
+    toPlot <- data.frame(x = c(0, xs, n + 1), y = c(0, ys, 0))
+    diff <- (max(tops) - min(bottoms))/8
+    x = y = NULL
+
+    so = sort(stats, decreasing=T)
+    probs = c(1,0.95,0.9,0.75,0.5,0.25,0.1,0.05,0)
+    percentiles = trunc(rank(so))/length(so)
+    x_ticks = findInterval(-probs, -percentiles, all.inside=T) + 1
+    x_ticks = sort(x_ticks)
+    x_labels = prettyNum(so[x_ticks], digits=2)
+    
+    g1 <- ggplot(toPlot, aes(x = x, y = y)) + 
+          geom_point(color = "green", size = 0.1) + 
+          geom_hline(yintercept = max(tops), colour = "red", linetype = "dashed") + 
+          geom_hline(yintercept = min(bottoms), colour = "red", linetype = "dashed") + 
+          geom_hline(yintercept = 0, colour = "black") + 
+          geom_line(color = "green") + 
+          theme_bw() + 
+          theme(panel.border = element_blank(), panel.grid.minor = element_blank(), 
+                axis.text.x = element_text(angle = 30, hjust = 1)) + #,
+            #axis.text.x=element_blank(),axis.title.x=element_blank(),axis.ticks = element_blank() ) +
+          coord_cartesian(xlim=c(0,max(toPlot$x))) + 
+          scale_x_continuous(breaks=x_ticks, labels=x_labels, sec.axis = sec_axis(~.+10)) + 
+          scale_y_continuous(breaks=seq(0,max(tops), 0.2)) + 
+          geom_segment(data = data.frame(x = pathway), mapping = aes(x = x, 
+            y = min(bottoms)-1.75*diff/2, xend = x, yend = min(bottoms)-diff/4), size = 0.2) +
+          labs(x = "Ranks based on moderated t statistic", y = "Enrichment score") + 
+          annotate("text", x=length(so)*0.02, y=-diff/4, label= "Up") + 
+          annotate("text", x=length(so)-100, y=diff/4, label= "Down") 
+    
+    g1
+}
+```
+
+# Overview
+
+We here run GSEA on DGE results from the 44k CtrD vs. NI arrays. For analysis, a preranked analysis using the R package fGSEA is used that should give similar results to preranked analysis in standard GSEA. 
+
+Finally, we will plot enrichment for selected gene sets. 
+
+
+```{r}
+load("../../Results/GeneExpression/DGE_results.Rdata")
+```
+
+# GSEA plots for selected gene sets
+
+Ranks are generated from DGE results comparing 48h CtrD vs. NI (**48h_InfVsNI_wo_last4**).
+
+```{r}
+names(all_results) = gsub("\\_wo_last4", "", names(all_results))
+tmp = all_results[["48h_InfVsNI"]]
+all_gsea_results = list()
+ranks = unlist(tapply(tmp$t, tmp$GeneSymbol, function(x) x[which(abs(x)==max(abs(x)))] ))
+```
+
+## Gene sets related to EMT
+
+EMT related gene sets were obtained from:
+
+- Qiagen website
+- Zeisberg et al., JCI (2009), doi: 10.1172/JCI36183 ; Table 1
+- Gröger et al., PLOS One (2012),  10.1371/journal.pone.0051136 ; supplementary tables S2 and S3
+- dbEMT (http://www.dbemt.bioinfo-minzhao.org)
+
+```{r}
+known_genes = unique(all_results[[1]]$GeneSymbol)
+
+all_gene_sets = list()
+
+manual_sets = list()
+manual_sets[["qiagen_emt_up"]] = c("AHNAK","BMP1","CALD1","CDH2","COL1A2","COL3A1","COL5A2","FN1","FOXC2","GNG11","GSC","IGFBP4","ITGA5","ITGAV","MMP2","MMP3","MMP9","MSN","SERPINE1","SNAI1","SNAI2","SNAI3","SOX10","SPARC","STEAP1","TCF4","TIMP1","TMEFF1","TMEM132A","TWIST1","VCAN","VIM","VPS13A","WNT5A","WNT5B")
+manual_sets[["qiagen_emt_down"]] = c("CAV2","CDH1","DSP","FGFBP1","IL1RN","KRT19","MITF","MST1R","NUDT13","PPPDE2","RGS2","SPP1","TFPI2","TSPAN13")
+manual_sets[["dbEMT_top20"]] = c("CTNNB1","SMAD3","HIF1A","TGFB1","ZEB2","EGFR","CDH1","ILK","ZEB1","TWIST1","SNAI2","EPAS1","SMAD2","SNAI1","IGF1R","ERBB2","MET","AKT1","SMAD7")
+manual_sets[["Review_Zeisberg_2009"]] = c("S100A4","DDR2","HSP47","COL1A2", "COL2A1","VIM","CDH1","CDH2","CDH11","TJP1","KRT5","KRT4","KRT14","KRT7", "SERPINH1","SNAI1","SNAI2","TWIST1", "ZEB1","FOXC2")
+
+for (s in names(manual_sets)) {
+  sel_genes = manual_sets[[s]][manual_sets[[s]] %in% known_genes]
+  all_gene_sets[[s]] = sel_genes
+}
+
+tmp = read.table("../../Data/External/GeneSets/dbEMT/emt.hsa.info_seq", sep="\t", header=F, fill=T, quote="")
+sel_genes = known_genes[known_genes %in% tmp$V2]
+all_gene_sets[["dbEMT_complete"]] = sel_genes[!is.na(sel_genes)]
+
+tmp = read.table("../../Data/External/GeneSets/EMT_Metaanalysis_Groeger_et_al_130_genes.txt.csv", sep="\t", header=T, fill=T, quote="")
+sel_genes = known_genes[known_genes %in% tmp$Symbol]
+all_gene_sets[["Groeger_MetaAnalysis_130genes"]] = sel_genes[!is.na(sel_genes)]
+
+tmp2 = read.table("../../Data/External/GeneSets/EMT_Metaanalysis_Groeger_et_al_365_genes.txt.csv", sep="\t", header=T, fill=T, quote="")
+sel_genes = known_genes[known_genes %in% tmp2$Gene.Symbol]
+all_gene_sets[["Groeger_MetaAnalysis_365genes"]] = sel_genes[!is.na(sel_genes)]
+```
+
+
+```{r}
+fgseaRes2 <- fgsea(all_gene_sets, ranks, minSize=15, maxSize=500, nperm=5000)
+fgseaRes2$leadingEdge = unlist(lapply(fgseaRes2$leadingEdge, function(x) paste(x, collapse=", ") ) )
+kable(fgseaRes2)
+```
+
+
+```{r}
+for (g in names(all_gene_sets)) {
+  sel_genes = all_gene_sets[[g]]
+  p = myPlotEnrichment(sel_genes, ranks)
+  rr = fgseaRes2[pathway==g]
+  print(p + ggtitle(g, paste("Adj.pval=",prettyNum(rr$padj, digits=2), "ES=",prettyNum(rr$ES, digits=2), ", NES=",prettyNum(rr$NES, digits=2) ) ) )
+}
+```
+
+```{r}
+output_file = paste(result_folder, "../../Results/GeneExpression/GSEA_Metaanalysis_365_genes.pdf", sep="/")
+pdf(output_file)
+g = "Groeger_MetaAnalysis_365genes"
+sel_genes = all_gene_sets[[g]]
+p = myPlotEnrichment(sel_genes, ranks)
+rr = fgseaRes2[pathway==g]
+print(p + ggtitle(g, paste("Adj.pval=",prettyNum(rr$padj, digits=2), ", ES=",prettyNum(rr$ES, digits=2), ", NES=",prettyNum(rr$NES, digits=2) ) ) )
+dev.off()
+```
+

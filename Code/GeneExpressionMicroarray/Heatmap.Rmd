@@ -1,0 +1,120 @@
+---
+title: "Analyses on End1 samples +/- Ctr infection at 24h/48h p.i."
+output: 
+ html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: false
+    number_sections: true
+    code_folding: hide
+    
+pdf_document:
+    fig_caption: true
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+author: "Hilmar Berger"
+---
+
+```{r, results='hide', message=FALSE}
+rm(list=ls())
+
+library(limma)
+library(reshape2)
+library(pheatmap)
+library(data.table)
+library(ggplot2)
+library(gridExtra)
+library(RColorBrewer)
+RedGreyBluePal3 = colorRampPalette(c(brewer.pal(n = 7, name = "RdYlBu")[7],  "grey90" ,brewer.pal(n = 7, name = "RdYlBu")[1]))(100)
+
+load("../../Results/GeneExpression/DGE_results.Rdata")
+load("../../Data/Processed/GeneExpression/CtrD_Inf_micro_array_preprocessed_data.Rdata")
+
+result_folder = "../../Results/GeneExpression/"
+```
+
+
+```{r}
+MA.avg <- avereps(MA, ID=MA$genes$ProbeName)
+exp_matrix = MA.avg$M * matrix(rep(ifelse(ed$dye_swap, -1, 1),each=nrow(MA.avg$M)),nrow(MA.avg$M),ncol(MA.avg$M))
+dswp = exp_design[colnames(exp_matrix),]$dye_swap
+cy3_label = exp_design[colnames(exp_matrix),]$Cy3
+cy5_label = exp_design[colnames(exp_matrix),]$Cy5
+scan_id = exp_design[colnames(exp_matrix),]$scan_ID
+array_label = paste(ifelse(dswp, cy3_label, cy5_label), "_",ifelse(dswp,cy5_label, cy3_label),"_",dswp,"_",scan_id,sep="")
+colnames(exp_matrix) = array_label
+
+```
+
+# Gene sets
+
+We here use the following gene sets: 
+
+  - EMT genes from the meta-analysis by Gröger et al (PlosOne 2012) (365 gene signature from Supp tables)
+
+```{r}
+normalized = MA
+norm_intensity_matrix_log2 = log2(norm_intensity_matrix)
+```
+
+
+```{r}
+all_gene_sets = list()
+
+
+manual_sets = list()
+
+tmp2 = read.table("../../Data/External/GeneSets/EMT_Metaanalysis_Groeger_et_al_365_genes.txt.csv", sep="\t", header=T, fill=T, quote="")
+sel_genes = unique(normalized$genes[normalized$genes$EntrezID %in% tmp2$EntrezID, "EntrezID"])
+all_gene_sets[["Groeger_MetaAnalysis_365genes"]] = sel_genes[!is.na(sel_genes)]
+
+e2s = as.data.frame(tapply(normalized$genes$GeneSymbol, normalized$genes$EntrezID, function(x) paste(unique(sort(x)), collapse=",") ))
+colnames(e2s) = "GeneSymbol"
+
+p2s = as.data.frame(tapply(normalized$genes$GeneSymbol, normalized$genes$ProbeName, function(x) paste(unique(sort(x)), collapse=",") ))
+colnames(p2s) = "GeneSymbol"
+```
+
+
+
+# Final heatmap
+
+```{r, fig.width=18, fig.height=22}
+dge_probes = subset(all_results[["48h_InfVsNI_wo_last4"]], adj.P.Val < 0.1 & abs(logFC) > 0.5)$ProbeName
+
+s = "Groeger_MetaAnalysis_365genes"
+sel_genes = all_gene_sets[[s]]
+sel_genes = c(sel_genes, unique(normalized$genes[normalized$genes$GeneSymbol %in% c("SNAI1","SEMA7A"), "EntrezID"]) )
+
+ee = ed
+rownames(ee) = paste(ifelse(ee$dye_swap, paste(ee$Cy3, ee$Cy5, sep="_"), paste(ee$Cy5, ee$Cy3, sep="_")), ee$dye_swap, ee$scan_ID, sep="_")
+
+sel_probes = subset(normalized$genes, EntrezID %in% sel_genes & ProbeName %in% dge_probes)$ProbeName
+if(length(sel_probes) < 2) next
+normalized_selected_genes = exp_matrix[sel_probes,, drop=F]
+rownames(normalized_selected_genes) = p2s[rownames(normalized_selected_genes),"GeneSymbol"]
+
+ee$Condition2 = paste(ifelse(ee$dye_swap, paste(ee$Cy3, ee$Cy5,ee$ch1_exp, sep="_"), paste(ee$Cy5, ee$Cy3,ee$ch1_exp, sep="_")), sep="_")
+
+normalized_selected_genes_avg_reps = avearrays(normalized_selected_genes, ee[colnames(normalized_selected_genes),"Condition2"])
+
+normalized_selected_genes_avg_probes = avereps(normalized_selected_genes_avg_reps, rownames(normalized_selected_genes_avg_reps))
+
+normalized_selected_genes_avg_probes = normalized_selected_genes_avg_probes[,order(colnames(normalized_selected_genes_avg_probes))]
+
+breaks_new = c(-5, seq(-2,2,4/98), 5)
+col_labels = sapply(strsplit(colnames(normalized_selected_genes_avg_probes), "_"), function(x) paste(paste(x[1:2], collapse="_"), "vs.", paste(x[3:4], collapse="_")) )
+pheatmap(normalized_selected_genes_avg_probes, scale="none", main=s, breaks=breaks_new, cluster_cols=F, labels_col = col_labels )
+
+```
+```{r}
+output_file = paste(result_folder, "../../Results/GeneExpression/Heatmap_Ctr_vs_NI_44k_avg_replicates.pdf", sep="/")
+pdf(output_file, width = 7, height=12)
+breaks_new = c(-5, seq(-1.5,1.5,3/98), 5)
+pheatmap(normalized_selected_genes_avg_probes, col = RedGreyBluePal3, scale="none", breaks=breaks_new, cluster_cols=F, labels_col = col_labels, fontsize_row = 4 )
+dev.off()
+```
+
+```{r}
+sessionInfo()
+```
+
